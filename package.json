@@ -2,6 +2,7 @@
     "name": "to-do-app",
     "version": "0.1.0",
     "private": true,
+    "homepage": "https://samirdamle.github.io/react-to-do-app",
     "dependencies": {
         "bootstrap": "^4.3.1",
         "deepmerge": "^3.2.0",
@@ -16,6 +17,8 @@
         "start": "PORT=8000 react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
@@ -34,6 +37,7 @@
         ]
     },
     "devDependencies": {
+        "gh-pages": "^2.0.1",
         "node-sass": "^4.12.0"
     }
 }
