@@ -1,8 +1,8 @@
 /* eslint no-script-url: 0, jsx-a11y/anchor-is-valid: 0 */
 import React, {Fragment, useEffect, useGlobal, useState} from 'reactn'
 import {PropTypes} from 'prop-types'
-
 import {clone, useMergedState} from '../../utils/Utils'
+import Counter from '../counter/Counter'
 
 const ToDoList = ({title, score}) => {
 
@@ -11,8 +11,11 @@ const ToDoList = ({title, score}) => {
         location: 'Bethesda',
     }
 
+    const fruits = ['apple', 'banana', 'pear', 'grapes', 'orange',]
+    const selectedFruit = 'orange'
+
     const [globalState, setGlobalState] = useGlobal()
-    
+
     const [toDoListState, setToDoListState] = useMergedState({
         // title: 'My Awesome To Do List',
         list: [
@@ -61,7 +64,7 @@ const ToDoList = ({title, score}) => {
         console.log('useEffect called = ')
         console.log(score)
 
-        setToDoListState({ userName: 'John Smith'})
+        setToDoListState({userName: 'John Smith'})
 
         return (evt) => {
             console.log('Clean up happened')
@@ -89,6 +92,22 @@ const ToDoList = ({title, score}) => {
     return (
         <Fragment>
 
+            <div className="mb-3">
+
+                <div className="mb-3">
+                    <div>The Counters below uses usePersistedState to save the state in localStorage. So the count will
+                        be retained even after refresh. Also, the counts of both counters will be in sync, even across
+                        different browser tabs.
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <Counter startAt={1}/>
+                </div>
+                <div className="mb-3">
+                    <Counter startAt={100}/>
+                </div>
+            </div>
+
             {/* Example of useState() */}
             <div className="">
                 <h1>Name: {state.name}</h1>
@@ -103,12 +122,13 @@ const ToDoList = ({title, score}) => {
                             newState.name = 'Mary'
                             myOrg.location = 'Bangalore'
                             return newState*/
-                            
+
                             return {...prevState, name: 'Mary'}
                         })
 
                         // setState({name: 'Mary'})
-                    }}>Call setState()</button>
+                    }}>Call setState()
+                    </button>
                 </div>
             </div>
 
@@ -120,14 +140,34 @@ const ToDoList = ({title, score}) => {
                 <ul>
                     {toDoListState.list.map((item, itemIndex) =>
                         <li key={itemIndex} className="mb-2">
-                            {item.title} {item.completed ? <span className="mr-2">- Completed</span> : <button className="btn btn-secondary mr-2" onClick={(evt) => { markCompleted(itemIndex) }}>Mark completed</button>}
-                            <button className="btn btn-secondary mr-2" onClick={(evt) => { toggleCompleted(itemIndex) }}>Toggle completed</button>
+                            {item.title} {item.completed ? <span className="mr-2">- Completed</span> :
+                            <button className="btn btn-secondary mr-2" onClick={(evt) => {
+                                markCompleted(itemIndex)
+                            }}>Mark completed</button>}
+                            <button className="btn btn-secondary mr-2" onClick={(evt) => {
+                                toggleCompleted(itemIndex)
+                            }}>Toggle completed
+                            </button>
                         </li>
                     )}
                 </ul>
                 <div className="mt-3">
                     <h3>Pet: {globalState.petName} is a {globalState.animal}</h3>
                 </div>
+            </div>
+
+            <div className="">
+                {{
+                    apple: <div className="">Apples</div>,
+                    banana: <div className="">Bananas</div>,
+                    pear: <div className="">Pears
+                        <div className="">{globalState.petName}</div>
+                    </div>,
+                    grapes: <div className="">Grapes</div>,
+                    orange: <div className="">Oranges
+                        <div className="">{globalState.animal}</div>
+                    </div>
+                }[selectedFruit]}
             </div>
         </Fragment>
     )
