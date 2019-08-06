@@ -89,6 +89,36 @@ const ToDoList = ({title, score}) => {
         })
     }
 
+    const User = ({name, age}) => {
+
+        const [state, setState] = useState({
+            name: 'Mike Wazowski',
+            age: 20
+        })
+
+        const changeName = (n) => {
+            setState((prevState) => ({...prevState, name: n}))
+        }
+
+        return (<div className="">
+            {age(state.age)}
+            {name(state.name, changeName)}
+            <div className="my-3">
+                <button className="btn btn-primary mr-3" onClick={(evt) => {
+                    setState((prevState) => ({...prevState, name: 'James Sullivan'}))
+
+                }}>
+                    Change Name
+                </button>
+                <button className="btn btn-secondary mr-3" onClick={(evt) => {
+                    setState((prevState) => ({...prevState, age: 30}))
+                }}>
+                    Change Age
+                </button>
+            </div>
+        </div>)
+    }
+
     return (
         <Fragment>
 
@@ -169,6 +199,27 @@ const ToDoList = ({title, score}) => {
                     </div>
                 }[selectedFruit]}
             </div>
+
+            <br/>
+            <hr/>
+            <br/>
+            <div className="">
+                <h3>Render Props Example</h3>
+                <User
+                    name={(nameValue, changeName) => (
+                        <div className="d-flex">
+                            <h5>{nameValue}</h5>
+                            <button className="btn btn-secondary mx-3"
+                                    onClick={(evt) => {
+                                changeName('Mr. Randall Boggs')
+                            }}>
+                                Change name from inside
+                            </button>
+                        </div>)}
+                    age={(ageValue) => (<div>Age: {ageValue}</div>)}
+                />
+            </div>
+            <br/><br/><br/>
         </Fragment>
     )
 }
